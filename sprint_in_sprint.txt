@@ -1,0 +1,199 @@
+3 start
+
+input_location:inputs
+input_location_copy:0
+current_instruct:0
+jump_to:0
+
+is_sub:0
+
+add_dest1:0
+add_dest2:0
+add_result:0
+
+sub_dest1:0
+sub_dest2:0
+sub_result:0
+
+ZERO:0 ONE:1 TWO:2 THREE:3 FOUR:4 FIVE:5 SEVEN:0 NINE:9
+
+start:7 input_location input_location_copy
+
+instructions:7 input_location address1
+7 address1:0 current_instruct
+
+
+instruction_is_0:4 current_instruct ZERO zero_instruct
+
+instruction_is_1:4 current_instruct ONE one_instruct
+
+instruction_is_2:4 current_instruct TWO
+two_instruct
+
+instruction_is_3:4 current_instruct THREE three_instruct
+
+instruction_is_4:4
+current_instruct FOUR
+four_instruct
+
+instruction_is_5:4 current_instruct FIVE five_instruct
+
+instruction_is_7:4 current_instruct SEVEN seven_instruct
+
+instruction_is_9:4 current_instruct NINE halt
+
+
+
+zero_instruct:1 input_location ONE input_location
+7 input_location zero_val1
+7 zero_val1:0 zero_data
+
+1 input_location ONE input_location
+7 input_location zero_val2
+1 zero_val2:0 input_location_copy zero_pos1
+2 zero_pos1 ONE zero_pos1
+
+0 zero_data:0 zero_pos1:0
+
+3 increment_location_jump
+
+
+
+one_instruct:1 input_location ONE input_location
+7 input_location value1
+1 value1:0 input_location_copy add_dest1
+2 add_dest1 ONE add_dest1
+
+1 input_location ONE input_location
+7 input_location value2
+1 value2:0 input_location_copy add_dest2
+2 add_dest2 ONE add_dest2
+
+1 input_location ONE input_location
+7 input_location value3
+1 value3:0 input_location_copy  jump_to
+2 jump_to ONE jump_to
+
+7 add_dest1 add_dest1_copy
+7 add_dest2 add_dest2_copy
+7 add_dest1 sub_dest1_copy
+7 add_dest2 sub_dest2_copy
+
+4 is_sub ONE sub_part
+1 add_dest1_copy:0 add_dest2_copy:0 add_result
+
+7 jump_to temp1
+7 add_result temp1:0
+
+3 increment_location_jump
+
+
+sub_part:2 sub_dest1_copy:0 sub_dest2_copy:0 sub_result
+
+7 jump_to temp2
+7 sub_result temp2:0
+
+3 increment_location_jump
+
+
+
+
+two_instruct:7 ONE is_sub
+3 one_instruct
+
+
+
+three_instruct:1 input_location ONE input_location
+
+7 input_location address2
+7 address2:0 jump_to
+
+1 jump_to input_location_copy input_location
+2 input_location ONE input_location
+
+3 instructions
+
+increment_location_jump:1 input_location ONE input_location
+
+3 instructions
+
+
+
+
+four_instruct:1 input_location ONE input_location
+7 input_location four_val1
+1 four_val1:0 input_location_copy 4_check1
+2 4_check1 ONE 4_check1
+
+1 input_location ONE input_location
+7 input_location four_val2
+1 four_val2:0 input_location_copy 4_check2
+2 4_check2 ONE 4_check2
+
+4 4_check1:0 4_check2:0 four_true
+
+1 input_location ONE input_location
+1 input_location ONE input_location
+
+3 instructions
+
+
+four_true:1 input_location ONE input_location
+7 input_location four_val3
+1 four_val3:0 input_location_copy input_location
+2 input_location ONE input_location
+
+3 instructions
+
+
+
+
+five_instruct:1 input_location ONE input_location
+7 input_location five_val1
+1 five_val1:0 input_location_copy 5_check1
+2 5_check1 ONE 5_check1
+
+1 input_location ONE input_location
+7 input_location five_val2
+1 five_val2:0 input_location_copy 5_check2
+2 5_check2 ONE 5_check2
+
+5 5_check1:0 5_check2:0 five_true
+
+1 input_location ONE input_location
+1 input_location ONE input_location
+
+3 instructions
+
+
+five_true:1 input_location ONE input_location
+7 input_location five_val3
+1 five_val3:0 input_location_copy input_location
+2 input_location ONE input_location
+
+3 instructions
+
+
+
+
+seven_instruct:1 input_location ONE input_location
+7 input_location seven_val1
+1 seven_val1:0 input_location_copy 7_pos1
+2 7_pos1 ONE 7_pos1
+
+
+1 input_location ONE input_location
+7 input_location seven_val2
+1 seven_val2:0 input_location_copy 7_pos2
+2 7_pos2 ONE 7_pos2
+
+7 7_pos1:0 7_pos2:0
+
+3 increment_location_jump
+
+
+
+halt:9
+
+inputs:3 6 18 24 0 2 3 4 5 9
+
